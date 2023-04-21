@@ -1,7 +1,14 @@
 <script>
 	import getWeather from '../services/weather.service';
+	import BoxData from '../Components/Box-data.svelte';
+
 	getWeather();
 </script>
+
+<svelte:head>
+	<title>Home</title>
+	<meta name="description" content="Home weather app" />
+</svelte:head>
 
 <div class="content-app">
 	<img
@@ -31,15 +38,19 @@
 					<h3>{weather.name}</h3>
 				</div>
 				<div class="children-container">
-					<div class="box-child">
-						<p>Temperature: {weather.temp_c} °</p>
-						<p>Feels like: {weather.feelslike_c} °</p>
-					</div>
-					<div class="box-child">
-						<p>Humidity: {weather.humidity}%</p>
-						<p>Wind: {weather.vis_km} km/h</p>
-						<p>Precipitation: {weather.precip_in}</p>
-					</div>
+					<BoxData
+						dataWeather={[
+							`Temperature: ${weather.temp_c} °`,
+							`Feels like: ${weather.feelslike_c} °`
+						]}
+					/>
+					<BoxData
+						dataWeather={[
+							`Humidity: ${weather.humidity}%`,
+							`Wind: ${weather.vis_km} km/h`,
+							`Precipitation: ${weather.precip_in}`
+						]}
+					/>
 				</div>
 				<div class="weather">
 					<p>{weather.text}</p>
@@ -80,16 +91,7 @@
 		align-items: center;
 		justify-content: space-around;
 	}
-	.box-child {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		border-radius: 10px;
-		background-color: #ffffff7f;
-		height: 190px;
-		width: 200px;
-	}
+
 	.box-child p {
 		font-size: 1.2rem;
 		color: #000;
